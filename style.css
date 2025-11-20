@@ -46,6 +46,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: opacity 0.1s;
 }
 .container #overlay .mid {
   display: flex;
@@ -53,7 +54,7 @@ main {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  transition: display 0.3s;
+  transition: opacity 0.3s;
 }
 .container #overlay .mid i {
   height: 35px;
@@ -65,6 +66,7 @@ main {
   color: white;
   border-radius: 50%;
   cursor: pointer;
+  transition: 0.3s all;
 }
 .container #overlay .mid i.muted {
   display: none;
@@ -72,6 +74,9 @@ main {
 .container #overlay .mid i.play {
   height: 50px;
   width: 50px;
+}
+.container #overlay .mid i:active {
+  scale: 0.9;
 }
 .container .video-container {
   height: 100%;
@@ -180,14 +185,14 @@ main {
 
 .centralArea i {
   position: absolute;
-  font-size: 4rem;
+  font-size: 5rem;
+  background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
   color: transparent;
-  background: linear-gradient(to bottom left in oklab, rgb(172, 90, 202), rgb(52, 23, 62));
   -webkit-background-clip: text;
           background-clip: text;
-  top: 50%;
+  top: 70%;
   left: 50%;
-  transform: scale(0);
+  transform: scale(0) translate(-50%, -50%);
 }
 
 .animate {
@@ -196,27 +201,27 @@ main {
 
 @keyframes instaHeartAnimation {
   0% {
+    top: 70%;
     transform: translate(-50%, -50%) scale(0) rotate(0deg);
   }
-  12% {
-    transform: translate(-50%, -50%) scale(1.25) rotate(0deg);
+  14% {
+    transform: translate(-50%, -50%) scale(1.35) rotate(0deg);
   }
-  22% {
-    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  28% {
+    transform: translate(-50%, -50%) scale(1.05) rotate(-8deg);
   }
-  32% {
-    transform: translate(-50%, -52%) scale(1.05) rotate(-10deg);
+  42% {
+    transform: translate(-50%, -53%) scale(1.18) rotate(6deg);
   }
-  46% {
-    transform: translate(-50%, -54%) scale(1) rotate(8deg);
+  60% {
+    top: 50%;
+    transform: translate(-50%, -58%) scale(0.95) rotate(-4deg);
   }
-  56% {
-    transform: translate(-50%, -56%) scale(0.95) rotate(0deg);
-  }
-  80% {
-    transform: translate(-50%, -60%) scale(0.6) rotate(0deg);
+  78% {
+    transform: translate(-50%, -65%) scale(0.65) rotate(2deg);
   }
   100% {
-    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    top: 75%;
+    transform: translate(-50%, -55%) scale(0) rotate(0deg);
   }
 }/*# sourceMappingURL=style.css.map */

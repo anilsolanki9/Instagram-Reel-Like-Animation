@@ -22,33 +22,46 @@ let centralArea = document.querySelector('.centralArea');
 
 let heart = document.querySelector('.centralArea i');
 
-overlay.addEventListener('click', function () {
-  if (isPlaying) {
-    midIconsContainer.style.display = 'flex';
-    video.pause();
-    isPlaying = false;
-    overlay.style.display = 'flex';
-  } else {
-    midIconsContainer.style.display = 'none';
-    video.play();
-    isPlaying = true;
-    overlay.style.display = 'none';
-  }
-});
+let lastClick = 0;
+let singleClickTimer;
 
+overlay.addEventListener('click', function (eve) {
+  const now = Date.now();
+  const delta = now - lastClick;
 
-centralArea.addEventListener('click', function () {
-  if (isPlaying) {
-    midIconsContainer.style.display = 'flex';
-    video.pause();
-    isPlaying = false;
-    overlay.style.display = 'flex';
-  } else {
-    midIconsContainer.style.display = 'none';
-    video.play();
-    isPlaying = true;
-    overlay.style.display = 'none';
+  clearTimeout(singleClickTimer);
+
+  if (delta < 250) {
+    // DOUBLE CLICK
+    console.log('DOUBLE CLICK');
+    lastClick = 0; // reset
+    // yaha double click wala code likho
+
+    heart.classList.add('animate');
+    setTimeout(function () {
+      heart.classList.remove('animate');
+    }, 900);
+    return;
   }
+
+  // SINGLE CLICK (wait to confirm no double click)
+  singleClickTimer = setTimeout(() => {
+    console.log('SINGLE CLICK');
+
+    if (isPlaying) {
+      midIconsContainer.style.display = 'flex';
+      video.pause();
+      isPlaying = false;
+      overlay.style.opacity = 1;
+    } else {
+      midIconsContainer.style.display = 'none';
+      video.play();
+      isPlaying = true;
+      overlay.style.opacity = 0;
+    }
+  }, 250);
+
+  lastClick = now;
 });
 
 audibleIcon.addEventListener('click', () => {
