@@ -1,54 +1,68 @@
-let playBtn = document.querySelector('i.play');
-let video = document.querySelector('video');
 let videoContainer = document.querySelector('.video-container');
 let container = document.querySelector('.container');
-let overlay = document.querySelector('#overlay');
-let isPlaying = false;
-let audibleIcon = document.querySelector('i.audible');
-let mutedIcon = document.querySelector('i.muted');
+
+let likesCount = document.querySelector('.right p');
+likesCount.textContent = '0';
+let likesCounter = 0;
+
 let followBtn = document.querySelector('.follow-btn');
 let likeBtn = document.querySelector('.line-heart');
 let dislikeBtn = document.querySelector('.filled-heart');
 
+//video play pause algo
+let overlay = document.querySelector('#overlay');
+let audibleIcon = document.querySelector('i.audible');
+let mutedIcon = document.querySelector('i.muted');
+let playBtn = document.querySelector('i.play');
+let video = document.querySelector('video');
+let midIconsContainer = document.querySelector('.mid');
+let isPlaying = false;
 
-playBtn.addEventListener('click', function () {
-  video.play();
-  isPlaying = true;
-  document.querySelector('.mid').style.opacity = '0';
-  overlay.style.zIndex = 10;
-});
+let centralArea = document.querySelector('.centralArea');
+
+let heart = document.querySelector('.centralArea i');
 
 overlay.addEventListener('click', function () {
   if (isPlaying) {
-    document.querySelector('.mid').style.opacity = '1';
+    midIconsContainer.style.display = 'flex';
     video.pause();
-    overlay.style.zIndex = -10;
     isPlaying = false;
+    overlay.style.display = 'flex';
   } else {
-    document.querySelector('.mid').style.opacity = '0';
+    midIconsContainer.style.display = 'none';
     video.play();
     isPlaying = true;
+    overlay.style.display = 'none';
+  }
+});
+
+
+centralArea.addEventListener('click', function () {
+  if (isPlaying) {
+    midIconsContainer.style.display = 'flex';
+    video.pause();
+    isPlaying = false;
+    overlay.style.display = 'flex';
+  } else {
+    midIconsContainer.style.display = 'none';
+    video.play();
+    isPlaying = true;
+    overlay.style.display = 'none';
   }
 });
 
 audibleIcon.addEventListener('click', () => {
-  overlay.style.zIndex = 10;
   audibleIcon.style.display = 'none';
-  video.muted = true;
   mutedIcon.style.display = 'flex';
-  video.play();
-  document.querySelector('.mid').style.opacity = '0';
-  isPlaying = true;
+  video.muted = true;
+  midIconsContainer.style.display = 'none';
 });
 
 mutedIcon.addEventListener('click', () => {
-  overlay.style.zIndex = 10;
   mutedIcon.style.display = 'none';
-  video.muted = false;
   audibleIcon.style.display = 'flex';
-  video.play();
-  document.querySelector('.mid').style.opacity = '0';
-  isPlaying = true;
+  video.muted = false;
+  midIconsContainer.style.display = 'none';
 });
 
 followBtn.addEventListener('click', function () {
@@ -63,10 +77,15 @@ followBtn.addEventListener('click', function () {
 likeBtn.addEventListener('click', function () {
   likeBtn.style.display = 'none';
   dislikeBtn.style.display = 'block';
+  likesCounter++;
+  likesCount.textContent = `${likesCounter}`;
 });
 
 dislikeBtn.addEventListener('click', function () {
   dislikeBtn.style.display = 'none';
   likeBtn.style.display = 'block';
+  likesCounter--;
+  likesCount.textContent = `${likesCounter}`;
 });
 
+//main animaion of heart
